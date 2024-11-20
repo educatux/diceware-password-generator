@@ -272,19 +272,24 @@ func (dg *DicewareGenerator) InteractiveGeneration(wordCount int, randomCapitali
             fmt.Printf("%s%d: %s (%s)%s\n", colorCyan, i+1, word, listType, colorReset)
         }
 
-        var choice int
-        for {
-            fmt.Print(colorBlue + "Votre choix : " + colorReset)
-            fmt.Scan(&choice)
-            if _, err := fmt.Scan(&choice); err != nil {
-                fmt.Println("Erreur lors de la lecture du choix :", err)
-                wordCount = 2
-            }
-            if choice >= 1 && choice <= CHOICES_COUNT {
-                break
-            }
-            fmt.Printf(colorRed+"Erreur : Choisissez un nombre entre 1 et %d\n"+colorReset, CHOICES_COUNT)
-        }
+
+	var choice int
+	for {
+	    fmt.Print(colorBlue + "Votre choix : " + colorReset)
+	    
+	    // Lecture de l'entrée utilisateur
+	    if _, err := fmt.Scan(&choice); err != nil {
+		fmt.Println(colorRed + "Erreur : Entrée invalide. Veuillez saisir un nombre." + colorReset)
+		continue // Recommencer la boucle en cas d'erreur
+	    }
+
+	    // Vérification de la plage du choix
+	    if choice >= 1 && choice <= CHOICES_COUNT {
+		break // Sortie de la boucle si le choix est valide
+	    }
+
+	    fmt.Printf(colorRed+"Erreur : Choisissez un nombre entre 1 et %d\n"+colorReset, CHOICES_COUNT)
+	}
 
         idx := choice - 1
         finalWords = append(finalWords, words[idx])
@@ -472,25 +477,31 @@ func main() {
         fmt.Println(colorRed + "Erreur : Choisissez 1 ou 2" + colorReset)
     }
 
-    // Get word count
-    var wordCount int
-    for {
-        fmt.Print(colorBlue + "\nNombre de mots (2-8) : " + colorReset)
-        input, err := readUserInput()
-        if err != nil {
-            fmt.Println(colorRed + "Erreur de saisie. Veuillez réessayer." + colorReset)
-            continue
-        }
-        fmt.Sscan(input, &wordCount)
-        if _, err := fmt.Sscan(input, &wordCount); err != nil {
-            fmt.Println("Erreur lors de la lecture de l'entrée :", err)
-            wordCount = 2
-        } 
-        if wordCount >= 2 && wordCount <= 8 {
-            break
-        }
-        fmt.Println(colorRed + "Erreur : Le nombre doit être entre 2 et 8" + colorReset)
-    }
+	var wordCount int
+	for {
+	    fmt.Print(colorBlue + "\nNombre de mots (2-8) : " + colorReset)
+	    
+	    // Lecture de l'entrée utilisateur
+	    input, err := readUserInput()
+	    if err != nil {
+		fmt.Println(colorRed + "Erreur de saisie. Veuillez réessayer." + colorReset)
+		continue // Redemande à l'utilisateur
+	    }
+	    
+	    // Tentative de conversion de l'entrée en entier
+	    if _, err := fmt.Sscan(input, &wordCount); err != nil {
+		fmt.Println(colorRed + "Erreur : entrée invalide. Veuillez saisir un nombre entier." + colorReset)
+		continue // Redemande à l'utilisateur
+	    }
+
+	    // Vérification si le nombre est dans la plage valide
+	    if wordCount >= 2 && wordCount <= 8 {
+		break // Sort de la boucle
+	    }
+
+	    fmt.Println(colorRed + "Erreur : Le nombre doit être entre 2 et 8." + colorReset)
+	}
+
 
     // Get capitalization preference
     var capitalize string
