@@ -17,6 +17,11 @@ jobs:
       with:
         go-version: '1.21'
 
+    - name: Ensure Go dependencies
+      run: |
+        go mod tidy
+        go mod verify
+
     - name: Install Podman
       run: |
         sudo apt-get update
@@ -44,6 +49,16 @@ jobs:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     steps:
     - uses: actions/checkout@v3
+
+    - name: Set up Go
+      uses: actions/setup-go@v4
+      with:
+        go-version: '1.21'
+
+    - name: Ensure Go dependencies
+      run: |
+        go mod tidy
+        go mod verify
 
     - name: Download required wordlists
       run: |
