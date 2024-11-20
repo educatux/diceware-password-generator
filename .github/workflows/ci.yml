@@ -22,6 +22,11 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y podman
 
+    - name: Download required wordlists
+      run: |
+        curl -o frenchdiceware.txt https://raw.githubusercontent.com/mbelivo/diceware-wordlists-fr/refs/heads/master/wordlist_fr_5d.txt
+        curl -o diceware-fr-alt.txt https://raw.githubusercontent.com/ArthurPons/diceware-fr-alt/refs/heads/master/diceware-fr-alt.txt
+
     - name: Build
       run: make build
 
@@ -39,6 +44,11 @@ jobs:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     steps:
     - uses: actions/checkout@v3
+
+    - name: Download required wordlists
+      run: |
+        curl -o frenchdiceware.txt https://raw.githubusercontent.com/mbelivo/diceware-wordlists-fr/refs/heads/master/wordlist_fr_5d.txt
+        curl -o diceware-fr-alt.txt https://raw.githubusercontent.com/ArthurPons/diceware-fr-alt/refs/heads/master/diceware-fr-alt.txt
 
     - name: Build and push container
       run: |
