@@ -1,2 +1,31 @@
+# Fichiers générés par macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Fichiers icônes personnalisées
+Icon?
+
+# Éléments provenant de mises en cache sur réseau
+._*
+
+# Fichiers Spotlight
+.Spotlight-V100
+.Trashes
+
+# Fichiers de sauvegarde
+.DocumentRevisions-V100
+.fseventsd
+.TemporaryItems
+.apdisk
+
+# Fichiers système (stockage étendu, par exemple APFS)
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.com.apple.sparsebundle.*
+
+# Fichiers de logs macOS
+.logs/
+
 diceware-fr-alt.txt 
 frenchdiceware.txt
