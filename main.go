@@ -276,6 +276,10 @@ func (dg *DicewareGenerator) InteractiveGeneration(wordCount int, randomCapitali
         for {
             fmt.Print(colorBlue + "Votre choix : " + colorReset)
             fmt.Scan(&choice)
+            if _, err := fmt.Scan(&choice); err != nil {
+                fmt.Println("Erreur lors de la lecture du choix :", err)
+                wordCount = 2
+            }
             if choice >= 1 && choice <= CHOICES_COUNT {
                 break
             }
@@ -478,6 +482,10 @@ func main() {
             continue
         }
         fmt.Sscan(input, &wordCount)
+        if _, err := fmt.Sscan(input, &wordCount); err != nil {
+            fmt.Println("Erreur lors de la lecture de l'entrée :", err)
+            wordCount = 2
+        } 
         if wordCount >= 2 && wordCount <= 8 {
             break
         }
